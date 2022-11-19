@@ -1,15 +1,38 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import ContactButtons from "../utils/contact-buttons";
+import {
+  deleteContact
+} from "../actions/contacts";
 class View extends Component {
-  constructor(props) {
-    debugger;
-    super(props);
-  }
+
 
   shouldComponentUpdate(nextProps) {
     return (this.props.views !== nextProps.views);
     }
-  render() {
+    /**
+   *
+   * @param {*} email
+   * @description this function removes contact
+   */
+
+  removeContact(email) {
+    let isConfirmed = window.confirm(
+      "Are you sure you want to delete this contact?"
+    );
+    if (isConfirmed) {
+      this.props
+        .deleteContact(email)
+        .then(() => {
+          // this.props.history.push("/contacts");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+    }
+  }
+  render(props) {
     return (
       <>
         {this.props.views === "list" && (
@@ -46,13 +69,15 @@ class View extends Component {
                         <td>{contact?.email}</td>
                         <td>{new Date(contact?.dob?.date).toDateString()}</td>
                         <td>
-                          <button className="btn btn-primary">Edit</button>{" "}
-                          <button
+                          <ContactButtons buttonText={"Edit"} buttonClass="btn-primary" /> {"  "}
+                          {/* <button
                             className="btn btn-danger"
                             onClick={() => this.removeContact(contact.email)}
                           >
                             Delete
-                          </button>
+                          </button> */}
+
+                          <ContactButtons buttonText={"Delete"}  buttonClass="btn-danger" onChildClick={this.removeContact.bind(this, contact.email)} />
                         </td>
                       </tr>
                     ))}
@@ -97,4 +122,13 @@ class View extends Component {
   }
 }
 
-export default View;
+const mapStateToProps = (state) => {
+  return {
+    contacts: state.contacts,
+  };
+};
+// export default View;
+export default connect(mapStateToProps, {
+  deleteContact
+})(View);
+

@@ -4,8 +4,7 @@ import {
   retrieveContacts,
   findContactsByTitle,
   deleteAllContacts,
-  fetchMoreContacts,
-  deleteContact,
+  fetchMoreContacts
 } from "../actions/contacts";
 // import { Link } from "react-router-dom";
 import "../index.css";
@@ -82,28 +81,7 @@ class ContactsList extends Component {
     });
   }
 
-  /**
-   *
-   * @param {*} email
-   * @description this function removes contact
-   */
-
-  removeContact(email) {
-    let isConfirmed = window.confirm(
-      "Are you sure you want to delete this contact?"
-    );
-    if (isConfirmed) {
-      this.props
-        .deleteContact(email)
-        .then(() => {
-          // this.props.history.push("/contacts");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-    }
-  }
+  
 
   /**
    *
@@ -299,6 +277,5 @@ export default connect(mapStateToProps, {
   retrieveContacts,
   findContactsByTitle,
   deleteAllContacts,
-  fetchMoreContacts,
-  deleteContact,
+  fetchMoreContacts
 })(ContactsList);

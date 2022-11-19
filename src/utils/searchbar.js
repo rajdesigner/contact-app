@@ -1,12 +1,7 @@
 import React, { Component} from "react";
 
 class SearchBar extends Component  {
-    constructor(props){
-        super(props);
-    }
-  
-
-  /**
+ /**
    *
    * @description
    */
@@ -16,7 +11,7 @@ class SearchBar extends Component  {
     this.props.findContactsByTitle(this.state.searchTitle);
   }
 
-  render() {
+  render(props) {
 
     return (
       <>
@@ -39,7 +34,6 @@ class SearchBar extends Component  {
             </div>
           </div>
         </div>
-        ;
       </>
     );
   }

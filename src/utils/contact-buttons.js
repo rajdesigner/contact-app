@@ -1,21 +1,16 @@
 import React, { Component} from "react";
-
 class ContactButtons extends Component  {
-    constructor(props){
-      debugger
-        super(props);
-    }
   
-
-
-  render() {
+  render(props) {
 
     return (
       <>
-       <button className="btn btn-primary">Edit</button>
+       <button className ={`btn ${ this.props.buttonClass }`} onClick={this.props.onChildClick}>{this.props.buttonText}</button>
       </>
     );
   }
 }
 
 export default ContactButtons;
+
+
