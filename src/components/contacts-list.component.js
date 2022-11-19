@@ -13,10 +13,6 @@ import View from "../utils/view";
 class ContactsList extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.refreshData = this.refreshData.bind(this);
-    this.setActiveContact = this.setActiveContact.bind(this);
-    this.findByTitle = this.findByTitle.bind(this);
     // this.removeAllContacts= this.removeAllContacts.bind(this);
 
     this.state = {
@@ -43,46 +39,6 @@ class ContactsList extends Component {
   componentDidMount() {
     this.props.retrieveContacts(this.state.page);
   }
-
-  /**
-   *
-   * @param {*} e
-   */
-
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
-
-    this.setState({
-      searchTitle: searchTitle,
-    });
-  }
-  /**
-   *
-   */
-
-  refreshData() {
-    this.setState({
-      currentContact: null,
-      currentIndex: -1,
-    });
-  }
-
-  /**
-   *
-   * @param {*} contact
-   * @param {*} index
-   */
-
-  setActiveContact(contact, index) {
-    debugger;
-    this.setState({
-      currentContact: contact,
-      currentIndex: index,
-    });
-  }
-
-  
-
   /**
    *
    * @param {*} view
