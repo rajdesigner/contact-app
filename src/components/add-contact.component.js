@@ -1,51 +1,64 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createContact } from "../actions/contacts";
-
+import { withRouter } from "react-router";
+import Buttons from "../utils/buttons";
 class AddContact extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeDob = this.onChangeDob.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
     this.saveContact = this.saveContact.bind(this);
     this.newContact = this.newContact.bind(this);
 
     this.state = {
-      id: null,
-      title: "",
-      description: "",
-      published: false,
-      submitted: false,
+      name: "",
+      email: "",
+      dob: "",
+      address: ""
     };
   }
 
-  onChangeTitle(e) {
+  onChangeName(e) {
     this.setState({
-      title: e.target.value,
+      name: e.target.value,
     });
   }
 
-  onChangeDescription(e) {
+  onChangeEmail(e) {
     this.setState({
-      description: e.target.value,
+      email: e.target.value,
+    });
+  }
+
+  onChangeDob(e) {
+    this.setState({
+      dob: e.target.value,
+    });
+  }
+
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value,
     });
   }
 
   saveContact() {
-    const { title, description } = this.state;
-
+    const { name, email, dob, address } = this.state;
+    const { history } = this.props;
     this.props
-      .createContact(title, description)
+      .createContact(name, email, dob, address)
       .then((data) => {
         this.setState({
-          id: data.id,
-          title: data.title,
-          description: data.description,
-          published: data.published,
-
-          submitted: true,
+          name: this.state.name,
+          email: this.state.email,
+          dob: this.state.dob,
+          address: this.state.address
         });
         console.log(data);
+        history.push("/contacts", {contacts: this.props.contacts});
       })
       .catch((e) => {
         console.log(e);
@@ -54,12 +67,10 @@ class AddContact extends Component {
 
   newContact() {
     this.setState({
-      id: null,
-      title: "",
-      description: "",
-      published: false,
-
-      submitted: false,
+      name: "",
+      email: "",
+      dob: "",
+      address: ""
     });
   }
 
@@ -76,39 +87,65 @@ class AddContact extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="title"
+                id="name"
                 required
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-                name="title"
+                value={this.state.name}
+                onChange={this.onChangeName}
+                name="name"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="email">Email</label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
-                id="description"
+                id="email"
                 required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
+                value={this.state.email}
+                onChange={this.onChangeEmail}
+                name="email"
               />
             </div>
 
-            <button onClick={this.saveContact} className="btn btn-success">
-              Submit
-            </button>
+            <div className="form-group">
+              <label htmlFor="dob">DOB</label>
+              <input
+                type="date"
+                className="form-control"
+                id="dob"
+                required
+                value={this.state.dob}
+                onChange={this.onChangeDob}
+                name="dob"
+              />
+            </div>
+
+
+            <div className="form-group">
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                className="form-control"
+                id="address"
+                required
+                value={this.state.address}
+                onChange={this.onChangeAddress}
+                name="address"
+              />
+            </div>
+            <Buttons buttonText={"Submit"}  buttonClass="btn-success" onChildClick={this.saveContact} />
+            
           </div>
         )}
       </div>
+
     );
   }
 }
 
-export default connect(null, { createContact })(AddContact);
+export default connect(null, { createContact })(withRouter(AddContact));

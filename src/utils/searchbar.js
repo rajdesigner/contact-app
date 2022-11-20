@@ -1,3 +1,17 @@
+/*
+ * Project Name: contact-book-app
+ * Created Date: Fri Nov 18 2022
+ * Author: Rajmani Prasad (bca.raj89@gmail.com)
+ * -----
+ * Last Modified: Sat Nov 19 2022
+ * -----
+ * Copyright (c) 2022 KeepSpace
+ * -----
+ * HISTORY:
+ * Date 	By	Comments
+ * SearchBar component
+ * ----------	---	---------------------------------------------------------
+ */
 import React, { Component} from "react";
 
 class SearchBar extends Component  {

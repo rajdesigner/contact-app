@@ -11,10 +11,10 @@ const initialState = [];
 
 function contactReducer(contacts = initialState, action) {
   const { type, payload } = action;
-
+  debugger;
   switch (type) {
     case CREATE_CONTACT:
-      return [...contacts, payload];
+      return [payload, ...contacts];
 
     case RETRIEVE_CONTACTS:
       return payload;

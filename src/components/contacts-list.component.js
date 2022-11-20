@@ -37,7 +37,11 @@ class ContactsList extends Component {
   }
 
   componentDidMount() {
-    this.props.retrieveContacts(this.state.page);
+    debugger;
+    if(this.props.contacts.length===0){
+      this.props.retrieveContacts(this.state.page);
+    }
+    
   }
   /**
    *

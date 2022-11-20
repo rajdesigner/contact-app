@@ -9,16 +9,22 @@ import {
 
 import ContactDataService from "../services/contact.service";
 
-export const createContact = (title, description) => async (dispatch) => {
+export const createContact = (name, email, dob, address) => async (dispatch) => {
+  debugger;
   try {
-    const res = await ContactDataService.create({ title, description });
+    const res = {
+      name: {'first': name},
+      email: email,
+      dob: {'date': new Date(dob)},
+      location: {'street': {'name':address}}
+    }
 
     dispatch({
       type: CREATE_CONTACT,
-      payload: res.data,
+      payload: res,
     });
 
-    return Promise.resolve(res.data);
+    return Promise.resolve(res);
   } catch (err) {
     return Promise.reject(err);
   }

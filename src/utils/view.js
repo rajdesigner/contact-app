@@ -1,6 +1,20 @@
+/*
+ * Project Name: contact-book-app
+ * Created Date: Fri Nov 18 2022
+ * Author: Rajmani Prasad (bca.raj89@gmail.com)
+ * -----
+ * Last Modified: Sun Nov 20 2022
+ * -----
+ * Copyright (c) 2022 KeepSpace
+ * -----
+ * HISTORY:
+ * Date 	By	Comments
+ * View Component based on list view and grid view whichever passed from contact-list component
+ * ----------	---	-----------------------------------------------------------------------------
+ */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ContactButtons from "../utils/contact-buttons";
+import Buttons from "./buttons";
 import {
   deleteContact
 } from "../actions/contacts";
@@ -69,15 +83,9 @@ class View extends Component {
                         <td>{contact?.email}</td>
                         <td>{new Date(contact?.dob?.date).toDateString()}</td>
                         <td>
-                          <ContactButtons buttonText={"Edit"} buttonClass="btn-primary" /> {"  "}
-                          {/* <button
-                            className="btn btn-danger"
-                            onClick={() => this.removeContact(contact.email)}
-                          >
-                            Delete
-                          </button> */}
+                          <Buttons buttonText={"Edit"} buttonClass="btn-primary" /> {"  "}
 
-                          <ContactButtons buttonText={"Delete"}  buttonClass="btn-danger" onChildClick={this.removeContact.bind(this, contact.email)} />
+                          <Buttons buttonText={"Delete"}  buttonClass="btn-danger" onChildClick={this.removeContact.bind(this, contact.email)} />
                         </td>
                       </tr>
                     ))}
@@ -101,11 +109,10 @@ class View extends Component {
                     {contact?.name?.last}
                   </h2>
                   <h3 className="fullstack">
-                    {contact?.location?.street?.number},{" "}
+                    {contact?.location?.street?.number}{" "}
                     {contact?.location?.street?.name}
-                    <br />
-                    {contact?.location?.city}, {contact?.location?.state} <br />
-                    {contact?.location?.country}, {contact?.location?.postcode}
+                    {contact?.location?.city} {contact?.location?.state} <br />
+                    {contact?.location?.country} {contact?.location?.postcode}
                   </h3>
                   <h3 className="email">
                     <a href={contact?.email}>{contact?.email}</a>
